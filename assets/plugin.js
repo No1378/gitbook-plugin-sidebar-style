@@ -1,52 +1,20 @@
-require(['gitbook', 'jQuery'], function(gitbook, $) {
-	var wechatURL;
-	var alipayURL;
-	var titleText;
-	var buttonText;
-	var wechatText;
-	var alipayText;
+require(['gitbook', 'jQuery'], function(gitbook, $, page) {
+
+	var title;
+	var author;
 
 	function insertDonateLink() {
-    if ($('.gitbook-donate').length === 0 && wechatURL !== undefined && (wechatURL !== '' || alipayURL !== '')) {
-			var html = [
-        '<div class="gitbook-donate">',
-        '<div>' + titleText + '</div>',
-        '<button id="rewardButton" disable="enable" onclick="var qr = document.getElementById(\'QR\'); if (qr.style.display === \'none\') {qr.style.display=\'block\';} else {qr.style.display=\'none\'}">',
-        '<span>' + buttonText + '</span>',
-        '</button>',
-        '<div id="QR" style="display: none;">'
-      ];
-			if (wechatURL !== '') {
-				html = html.concat([
-          '<div id="wechat" style="display: inline-block">',
-					'<a href="' + wechatURL + '" class="fancybox" rel="group">',
-          '<img id="wechat_qr" src="' + wechatURL + '" alt="WeChat Pay"/>',
-					'</a>',
-          '<p>' + wechatText + '</p>',
-          '</div>'
-        ]);
-			}
-			if (alipayURL !== '') {
-				html = html.concat([
-          '<div id="alipay" style="display: inline-block">',
-					'<a href="' + alipayURL+ '" class="fancybox" rel="group">',
-          '<img id="alipay_qr" src="' + alipayURL + '" alt="Alipay"/>',
-					'</a>',
-          '<p>' + alipayText + '</p>', '</div>'
-        ]);
-			}
-			html = html.concat(['</div>', '</div>']);
-			$('.page-inner section.normal:last').after(html.join(''));
+		if ($('.sidebar-header').length == 0) {
+			html = '<div class="sidebar-header"><h1 class="title">'+title+'</h1></div>';
+			$('.book-summary').prepend(html)
+
+			$('.summary li:last').html('<a>作者：'+author+'</a>')
 		}
 	}
 
 	gitbook.events.bind('start', function(e, config) {
-    wechatURL = config.donate.wechat || '';
-		wechatText = config.donate.wechatText || '微信捐赠';
-		alipayURL = config.donate.alipay || '';
-		alipayText = config.donate.alipayText || '支付宝捐赠';
-		titleText = config.donate.title || '';
-		buttonText = config.donate.button || '赏';
+		title = config['sidebar-style'].title;
+		author = config['sidebar-style'].author;
 		insertDonateLink();
 	});
 

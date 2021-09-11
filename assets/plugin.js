@@ -8,8 +8,11 @@ require(['gitbook', 'jQuery'], function(gitbook, $, page) {
 			html = '<div class="sidebar-header"><h1 class="title">'+title+'</h1></div>';
 			$('.book-summary').prepend(html)
 
+
 			if (author) {
-				$('.summary li:last').html('<a>作者：'+author+'</a>')
+				$('.summary li:last').html('<a>作者：'+author+'</a>');
+			} else {
+				$('.summary li:last').html('');
 			}
 		}
 	}

@@ -1,6 +1,6 @@
 {
 	"name": "gitbook-plugin-sidebar-style",
-	"version": "1.0.0",
+	"version": "1.0.2",
 	"description": "Gitbook 侧边栏修饰插件",
 	"main": "index.js",
 	"repository": {
